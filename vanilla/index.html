@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Interactive comments section</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <!-- <script src="script.js" defer></script> -->
+  </head>
+  <body>
+    <!-- Pull dynamic content from the data.json file -->
+    <div id="box-1">
+      <div class="num">
+        <img src="../images/icon-plus.svg" width="10px" height="10px" alt="" />
+        <span>0</span>
+        <img
+          src="../images/icon-minus.svg"
+          width="10px"
+          height="2.5px"
+          alt=""
+        />
+      </div>
+      <div class="content">
+        <div class="content-top">
+          <div class="info">
+            <img
+              class="image"
+              src="../images/avatars/image-amyrobson.png"
+              alt="image-amyrobson"
+            />
+            <div class="username">amyrobson</div>
+            <div class="createdAt">1 months ago</div>
+          </div>
+          <div class="reply">
+            <img
+              src="../images/icon-reply.svg"
+              width="14px"
+              height="12.25px"
+              alt=""
+            />
+            <span>Reply</span>
+          </div>
+        </div>
+        <div class="content-body">
+          Impressive! Though it seems the drag feature could be improved. But
+          overall it looks incredible. You’ve nailed the design and the
+          responsiveness at various breakpoints works really well.
+        </div>
+      </div>
+    </div>
+    <div id="box-2">
+      <div class="num">
+        <img src="../images/icon-plus.svg" width="10px" height="10px" alt="" />
+        <span>0</span>
+        <img
+          src="../images/icon-minus.svg"
+          width="10px"
+          height="2.5px"
+          alt=""
+        />
+      </div>
+      <div class="content">
+        <div class="content-top">
+          <div class="info">
+            <img
+              class="image"
+              src="../images/avatars/image-amyrobson.png"
+              alt="image-amyrobson"
+            />
+            <div class="username">amyrobson</div>
+            <div class="createdAt">1 months ago</div>
+          </div>
+          <div class="reply">
+            <img
+              src="../images/icon-reply.svg"
+              width="14px"
+              height="12.25px"
+              alt=""
+            />
+            <span>Reply</span>
+          </div>
+        </div>
+        <div class="content-body">
+          Impressive! Though it seems the drag feature could be improved. But
+          overall it looks incredible. You’ve nailed the design and the
+          responsiveness at various breakpoints works really well.
+        </div>
+      </div>
+    </div>
+    <div id="box-3">
+      <div id="line"></div>
+      <div id="line-right-box">
+        <div class="inner-box">
+          <div class="num">
+            <img
+              src="../images/icon-plus.svg"
+              width="10px"
+              height="10px"
+              alt=""
+            />
+            <span>0</span>
+            <img
+              src="../images/icon-minus.svg"
+              width="10px"
+              height="2.5px"
+              alt=""
+            />
+          </div>
+          <div class="content">
+            <div class="content-top">
+              <div class="info">
+                <img
+                  class="image"
+                  src="../images/avatars/image-amyrobson.png"
+                  alt="image-amyrobson"
+                />
+                <div class="username">amyrobson</div>
+                <div class="createdAt">1 months ago</div>
+              </div>
+              <div class="reply">
+                <img
+                  src="../images/icon-reply.svg"
+                  width="14px"
+                  height="12.25px"
+                  alt=""
+                />
+                <span>Reply</span>
+              </div>
+            </div>
+            <div class="content-body">
+              @maxblagun If you’re still new, I’d recommend focusing on the
+              fundamentals of HTML, CSS, and JS before considering React. It’s
+              very tempting to jump ahead but lay a solid foundation first.
+            </div>
+          </div>
+        </div>
+        <div class="inner-box">
+          <div class="num">
+            <img
+              src="../images/icon-plus.svg"
+              width="10px"
+              height="10px"
+              alt=""
+            />
+            <span>0</span>
+            <img
+              src="../images/icon-minus.svg"
+              width="10px"
+              height="2.5px"
+              alt=""
+            />
+          </div>
+          <div class="content">
+            <div class="content-top">
+              <div class="info">
+                <img
+                  class="image"
+                  src="../images/avatars/image-amyrobson.png"
+                  alt="image-amyrobson"
+                />
+                <div class="username">amyrobson</div>
+                <div class="createdAt">1 months ago</div>
+              </div>
+              <div class="reply">
+                <img
+                  src="../images/icon-reply.svg"
+                  width="14px"
+                  height="12.25px"
+                  alt=""
+                />
+                <span>Reply</span>
+              </div>
+            </div>
+            <div class="content-body">
+              @maxblagun If you’re still new, I’d recommend focusing on the
+              fundamentals of HTML, CSS, and JS before considering React. It’s
+              very tempting to jump ahead but lay a solid foundation first.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="box-4">
+      <img src="../images/avatars/image-amyrobson.png" alt="image-amyrobson" />
+      <textarea placeholder="Add a comment…"></textarea>
+      <button>SEND</button>
+    </div>
+  </body>
+</html>
