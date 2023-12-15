@@ -33,17 +33,9 @@ function renderScore(comment) {
   const score = document.createElement("div");
   score.innerHTML = `
     <div class="score-container">
-      <img
-        class="icon-plus"
-        src="../images/icon-plus.svg"
-        alt="+"
-      />
+      <div class="icon-plus"></div>
       <span class="score-number">${comment.score}</span>
-      <img
-        class="icon-minus"
-        src="../images/icon-minus.svg"
-        alt="-"
-      />
+      <div class="icon-minus"></div>
     </div>
   `;
   return score;
