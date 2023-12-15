@@ -6,7 +6,6 @@ function renderComments(data) {
   const div = document.createElement("div");
   const comments = data.comments;
   const currentUser = data.currentUser;
-  // div.style.height = "100%";
 
   comments.forEach((comment) => {
     div.appendChild(renderSingleComment(comment, currentUser));
@@ -55,7 +54,6 @@ function renderCommentMainBody(comment, currentUser) {
 function renderCommentRelatedInfo(comment, currentUser) {
   if (comment.user.username === currentUser.username) {
     return renderCommentRelatedInfoForCurrentUser(comment);
-    // return renderCommentRelatedInfoForOthers(comment);
   }
   return renderCommentRelatedInfoForOthers(comment);
 }
@@ -152,6 +150,8 @@ function renderReplies(replies, currentUser) {
 
 function renderReplyComments(replies, currentUser) {
   const replyComments = document.createElement("div");
+
+  replyComments.classList.add("reply-comments-main-container");
 
   replies.forEach((reply) => {
     replyComments.appendChild(renderSingleComment(reply, currentUser));

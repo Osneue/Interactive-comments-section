@@ -8,16 +8,19 @@
 }
 
 body {
-  width: 1440px;
-  height: 1024px;
-  padding: 64px 355px;
+  /* width: 1440px;
+  height: 1024px; */
+  height: 100vh;
   background: var(--Very-Light-Gray, #f5f6fa);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #main-container {
-  height: 100%;
-  /* display: flex;
-  flex-direction: column; */
+  width: 50.69%;
+  min-width: 600px;
+  max-width: 730px;
 }
 
 /*
@@ -31,7 +34,6 @@ body {
   border-radius: 8px;
   background: var(--White, #fff);
   margin-bottom: 20px;
-  min-width: 642px;
 }
 
 /*
@@ -41,7 +43,6 @@ body {
 .score-container {
   width: 40px;
   height: 100px;
-  /* margin: 24px 24px 0 24px; */
   border-radius: 10px;
   background: var(--Very-Light-Gray, #f5f6fa);
   display: flex;
@@ -90,6 +91,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  margin-left: 24px;
 }
 
 /*
@@ -192,7 +194,6 @@ body {
 */
 
 .comment-content {
-  width: 618px;
   color: var(--Grayish-Blue, #67727e);
   font-feature-settings: "clig" off, "liga" off;
   font-family: Rubik;
@@ -209,15 +210,14 @@ body {
 .reply-container {
   display: flex;
   justify-content: end;
-  height: 100%;
+}
+
+.reply-comments-main-container {
+  width: 88%;
 }
 
 .reply-container .comment-main-container:not(:last-child) {
   margin-bottom: 24px;
-}
-
-.reply-container .comment-content {
-  width: 530px;
 }
 
 .reply-to {
@@ -232,8 +232,6 @@ body {
 
 .reply-line-icon {
   width: 2px;
-  /* height: 50%; */
-  /* height: 348px; */
   background: var(--Light-Gray, #e9ebf0);
   margin-right: 43px;
   margin-bottom: 30px;
@@ -244,11 +242,11 @@ body {
 */
 
 .input-container {
-  width: 730px;
   height: 144px;
   border-radius: 8px;
   background: var(--White, #fff);
   display: flex;
+  justify-content: space-between;
 }
 
 .input-avatar {
@@ -259,14 +257,14 @@ body {
 }
 
 .input-box {
-  width: 506px;
+  flex: 1;
   height: 96px;
   border-radius: 8px;
   border: 1px solid var(--Light-Gray, #e9ebf0);
   background: var(--White, #fff);
   resize: none;
 
-  margin: 24px 16px 0 0;
+  margin-top: 24px;
   padding: 12px 0 0 24px;
 }
 
@@ -281,7 +279,7 @@ body {
   border-radius: 8px;
   background: var(--Moderate-Blue, #5357b6);
   border: none;
-  margin-top: 24px;
+  margin: 24px 24px 0 16px;
 
   color: var(--White, #fff);
   font-feature-settings: "clig" off, "liga" off;
