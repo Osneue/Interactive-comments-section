@@ -68,6 +68,9 @@ export default class View {
     if (doing.replying.isReplying) {
       this.#bindReplySubmitButton(handler);
     }
+    if (doing.editing.isEditing) {
+      this.#bindUpdateButton(handler);
+    }
   }
 
   #bindReplyButton(handler) {
@@ -104,6 +107,18 @@ export default class View {
     });
   }
 
+  #bindUpdateButton(handler) {
+    const updateContainer = this.#qs('[data-id="update"]');
+    const updateBtn = this.#qs("button", updateContainer);
+    const replyContent = this.#qs(
+      ".reply-content",
+      updateContainer.previousElementSibling
+    );
+    updateBtn.addEventListener("click", () => {
+      handler("update", replyContent.textContent.trim());
+    });
+  }
+
   #renderReplying(currentUser, commentId) {
     const commentMainContainer = this.#qs(`[data-id="${commentId}"]`);
     const input = this.#renderInput(currentUser, "REPLY");
@@ -120,15 +135,10 @@ export default class View {
   #renderEditing(commentId) {
     const commentMainContainer = this.#qs(`[data-id="${commentId}"]`);
     const commentContent = this.#qs(".comment-content", commentMainContainer);
-    const textArea = document.createElement("textarea");
-    const originalContent = commentContent.textContent
-      .replace(/\s+/g, " ")
-      .trim();
-    // console.log(originalContent);
-    commentContent.textContent = "";
-    textArea.value = originalContent;
-    textArea.classList.add("input-box");
-    commentContent.appendChild(textArea);
+
+    const replyContent = this.#qs(".reply-content", commentContent);
+    replyContent.setAttribute("contenteditable", "true");
+
     commentContent.classList.add("editing");
 
     const textReply = this.#qs(".text-edit", commentMainContainer);
@@ -143,6 +153,7 @@ export default class View {
     updateBtn.classList.add("no-margin");
     btnContainer.appendChild(updateBtn);
     btnContainer.classList.add("btn-container");
+    btnContainer.setAttribute("data-id", "update");
     commentMainBody.appendChild(btnContainer);
   }
 
@@ -276,10 +287,11 @@ export default class View {
     const commentContent = document.createElement("div");
     commentContent.classList.add("comment-content");
     commentContent.innerHTML = `
-        <span class="reply-to">${
+        <span class="reply-to" contenteditable="false">${
           comment.replyingTo ? `@${comment.replyingTo}` : ""
-        }</span>
+        }</span><span class="reply-content" contenteditable="false">
         ${comment.content}
+        </span>
     `;
     return commentContent;
   }

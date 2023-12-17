@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       handleEdit(idOrContent);
     } else if (btn === "replySubmit") {
       handleReplySubmit(idOrContent);
+    } else if (btn === "update") {
+      handleUpdate(idOrContent);
     }
 
     view.render(
@@ -46,12 +48,16 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   function handleEdit(id) {
     const { isEditing, editCommentId } = store.editing;
-    console.log(isEditing, editCommentId, id);
     if (isEditing === false || id !== editCommentId) {
       store.setEditing({ isEditing: true, editCommentId: id });
     } else {
       store.setEditing({ isEditing: false, editCommentId: id });
     }
+  }
+
+  function handleUpdate(content) {
+    store.updateComment(content);
+    store.setEditing({ isEditing: false, editCommentId: 0 });
   }
 
   view.render(

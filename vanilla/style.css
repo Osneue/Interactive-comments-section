@@ -214,7 +214,18 @@ body {
 }
 
 .editing {
-  display: flex;
+  border-radius: 8px;
+  border: 1px solid var(--Moderate-Blue, #5357b6);
+  background: var(--White, #fff);
+  padding: 12px 24px 0;
+}
+
+.editing:hover {
+  border: 2.5px solid var(--Moderate-Blue, #5357b6);
+}
+
+.reply-content[contenteditable="true"] {
+  outline: none;
 }
 
 /*

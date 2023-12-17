@@ -41,20 +41,31 @@ export default class Store {
     this.#setState(stateClone);
   }
 
+  updateComment(content) {
+    const stateClone = structuredClone(this.#getState());
+    const commentOrReply = this.#findCorrespondingComment(
+      stateClone.data.comments,
+      this.editing.editCommentId,
+      true
+    );
+    commentOrReply.content = content;
+    this.#setState(stateClone);
+  }
+
   addReply(content) {
     const stateClone = structuredClone(this.#getState());
     const reply = this.#fillReplyTemplate(content);
     const comment = this.#findCorrespondingComment(
       stateClone.data.comments,
-      this.replying.replyCommentId
+      this.replying.replyCommentId,
+      false
     );
     comment.replies.push(reply);
     this.#reallocateCommentIds(stateClone.data.comments);
     this.#setState(stateClone);
   }
 
-  #findCorrespondingComment(comments, id) {
-    console.log(comments, id);
+  #findCorrespondingComment(comments, id, canReturnReply) {
     let correspondingComment = null;
 
     comments.forEach((comment) => {
@@ -63,7 +74,8 @@ export default class Store {
       } else if (comment.replies && comment.replies.length > 0) {
         comment.replies.forEach((reply) => {
           if (reply.id === id) {
-            correspondingComment = comment;
+            if (canReturnReply) correspondingComment = reply;
+            else correspondingComment = comment;
           }
         });
       }
