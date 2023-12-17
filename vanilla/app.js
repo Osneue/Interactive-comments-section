@@ -14,11 +14,13 @@ document.addEventListener("DOMContentLoaded", async function () {
   const view = new View();
   const store = new Store(data);
 
-  function handleClick(btn, id) {
+  function handleClick(btn, idOrContent) {
     if (btn === "reply") {
-      handleReply(id);
+      handleReply(idOrContent);
     } else if (btn === "edit") {
-      handleEdit(id);
+      handleEdit(idOrContent);
+    } else if (btn === "replySubmit") {
+      handleReplySubmit(idOrContent);
     }
 
     view.render(
@@ -35,6 +37,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     } else {
       store.setReplying({ isReplying: false, replyCommentId: id });
     }
+  }
+
+  function handleReplySubmit(content) {
+    store.addReply(content);
+    store.setReplying({ isReplying: false, replyCommentId: 0 });
   }
 
   function handleEdit(id) {

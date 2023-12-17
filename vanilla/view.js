@@ -29,7 +29,7 @@ export default class View {
       this.#renderEditing(doing.editing.editCommentId);
     }
 
-    this.#bindButton(handler);
+    this.#bindButton(handler, doing);
   }
 
   #qs(selector, root) {
@@ -61,9 +61,13 @@ export default class View {
     return currentNode;
   }
 
-  #bindButton(handler) {
+  #bindButton(handler, doing) {
     this.#bindReplyButton(handler);
     this.#bindEditButton(handler);
+
+    if (doing.replying.isReplying) {
+      this.#bindReplySubmitButton(handler);
+    }
   }
 
   #bindReplyButton(handler) {
@@ -76,6 +80,14 @@ export default class View {
       commentReply.addEventListener("click", () => {
         handler("reply", +commentMainContainer.getAttribute("data-id"));
       });
+    });
+  }
+
+  #bindReplySubmitButton(handler) {
+    const inputContainer = this.#qs('[data-id="reply"]');
+    const replySubmitBtn = this.#qs("button", inputContainer);
+    replySubmitBtn.addEventListener("click", () => {
+      handler("replySubmit", replySubmitBtn.previousElementSibling.value);
     });
   }
 
@@ -95,6 +107,7 @@ export default class View {
   #renderReplying(currentUser, commentId) {
     const commentMainContainer = this.#qs(`[data-id="${commentId}"]`);
     const input = this.#renderInput(currentUser, "REPLY");
+    input.setAttribute("data-id", "reply");
     commentMainContainer.parentNode.insertBefore(
       input,
       commentMainContainer.nextSibling
@@ -157,7 +170,6 @@ export default class View {
     const score = this.#renderScore(comment);
 
     commentMainContainer.classList.add("comment-main-container");
-    // commentMainContainer.id = `${comment.id}`;
     commentMainContainer.setAttribute("data-id", `${comment.id}`);
     commentMainContainer.appendChild(score);
     commentMainContainer.appendChild(commentMainBody);
