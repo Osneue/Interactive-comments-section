@@ -343,3 +343,86 @@ body {
   justify-content: end;
   align-items: center;
 }
+
+/*
+* modal styles
+*/
+
+.modal-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  opacity: 0.5;
+  background: #000;
+}
+
+.modal {
+  width: 400px;
+  border-radius: 8px;
+  background: var(--White, #fff);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 1;
+  gap: 20px;
+  z-index: 1;
+}
+
+.modal-header {
+  color: var(--Dark-Blue, #334253);
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Rubik;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.modal-text {
+  color: var(--Grayish-Blue, #67727e);
+  font-family: Rubik;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+}
+
+.modal-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-btn button {
+  border: 0;
+  border-radius: 8px;
+  padding: 0.75em 2em;
+  font-family: Rubik;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+  color: var(--White, #fff);
+}
+
+.modal-btn button:hover {
+  opacity: 0.5;
+  cursor: url("../images/icon-pointer.svg"), pointer;
+}
+
+.modal-cancel {
+  background: var(--Grayish-Blue, #67727e);
+}
+
+.modal-delete {
+  background: var(--Soft-Red, #ed6368);
+}
