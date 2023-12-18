@@ -75,6 +75,8 @@ export default class View {
   }
 
   #bindButton(handler, doing) {
+    this.#bindUpVoteBtn(handler);
+    this.#bindDownVoteBtn(handler);
     this.#bindSendButton(handler);
     this.#bindReplyButton(handler);
     this.#bindEditButton(handler);
@@ -88,6 +90,32 @@ export default class View {
     if (doing.editing.isEditing) {
       this.#bindUpdateButton(handler);
     }
+  }
+
+  #bindUpVoteBtn(handler) {
+    const upVoteBtnList = this.#qsAll(".icon-plus");
+    upVoteBtnList.forEach((upVoteBtn) => {
+      const commentMainContainer = this.#findParentWithClass(
+        upVoteBtn,
+        "comment-main-container"
+      );
+      upVoteBtn.addEventListener("click", () => {
+        handler("upVote", +commentMainContainer.getAttribute("data-id"));
+      });
+    });
+  }
+
+  #bindDownVoteBtn(handler) {
+    const downVoteBtnList = this.#qsAll(".icon-minus");
+    downVoteBtnList.forEach((downVoteBtn) => {
+      const commentMainContainer = this.#findParentWithClass(
+        downVoteBtn,
+        "comment-main-container"
+      );
+      downVoteBtn.addEventListener("click", () => {
+        handler("downVote", +commentMainContainer.getAttribute("data-id"));
+      });
+    });
   }
 
   #bindSendButton(handler) {

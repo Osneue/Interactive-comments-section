@@ -27,6 +27,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       handleReplySubmit(idOrContent);
     } else if (btn === "update") {
       handleUpdate(idOrContent);
+    } else if (btn === "upVote") {
+      handleUpVote(idOrContent);
+    } else if (btn === "downVote") {
+      handleDownVote(idOrContent);
     }
 
     view.render(store.data, {
@@ -34,6 +38,14 @@ document.addEventListener("DOMContentLoaded", async function () {
       editing: store.editing,
     });
   });
+
+  function handleUpVote(id) {
+    store.addScore(id);
+  }
+
+  function handleDownVote(id) {
+    store.subScore(id);
+  }
 
   function handleSend(conetent) {
     store.send(conetent);
