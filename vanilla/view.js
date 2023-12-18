@@ -5,13 +5,26 @@
 
 export default class View {
   $ = {};
-  //   clickedReply = null;
+  deleteCommentId = 0;
+  handler = null;
 
   constructor() {
     this.$.mainContainer = this.#qs("#main-container");
+    this.$.modalContainer = this.#qs('[data-id="modal-container"]');
+    this.$.modalDeleteBtn = this.#qs('[data-id="modal-delete"]');
+    this.$.modalCancelBtn = this.#qs('[data-id="modal-cancel"]');
+
+    this.#bindModalCancelButton(() => {
+      this.$.modalContainer.classList.remove("activated");
+    });
   }
 
-  render(data, doing, handler) {
+  setHandler(handler) {
+    this.#bindModalDeleteButton(handler);
+    this.handler = handler;
+  }
+
+  render(data, doing) {
     const comments = this.#renderComments(data);
     const input = this.#renderInput(data.currentUser, "SEND", "send");
 
@@ -29,7 +42,7 @@ export default class View {
       this.#renderEditing(doing.editing.editCommentId);
     }
 
-    this.#bindButton(handler, doing);
+    this.#bindButton(this.handler, doing);
   }
 
   #qs(selector, root) {
@@ -44,7 +57,7 @@ export default class View {
     const list = root
       ? root.querySelectorAll(selector)
       : document.querySelectorAll(selector);
-    if (list.length === 0) throw new Error(`Cannot find element: ${selector}`);
+    //if (list.length === 0) throw new Error(`Cannot find element: ${selector}`);
     return list;
   }
 
@@ -65,7 +78,9 @@ export default class View {
     this.#bindSendButton(handler);
     this.#bindReplyButton(handler);
     this.#bindEditButton(handler);
-    // this.#bindDeleteButton(handler);
+    this.#bindDeleteButton(() => {
+      this.$.modalContainer.classList.add("activated");
+    });
 
     if (doing.replying.isReplying) {
       this.#bindReplySubmitButton(handler);
@@ -137,8 +152,23 @@ export default class View {
         "comment-main-container"
       );
       commentDelete.addEventListener("click", () => {
-        handler("delete", +commentMainContainer.getAttribute("data-id"));
+        this.deleteCommentId = +commentMainContainer.getAttribute("data-id");
+        handler();
       });
+    });
+  }
+
+  #bindModalDeleteButton(handler) {
+    this.$.modalDeleteBtn.addEventListener("click", () => {
+      this.$.modalContainer.classList.remove("activated");
+
+      handler("delete", this.deleteCommentId);
+    });
+  }
+
+  #bindModalCancelButton(handler) {
+    this.$.modalCancelBtn.addEventListener("click", () => {
+      handler();
     });
   }
 

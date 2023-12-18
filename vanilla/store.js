@@ -29,6 +29,20 @@ export default class Store {
     return this.state.editing;
   }
 
+  delete(id) {
+    const stateClone = structuredClone(this.#getState());
+    const newComments = stateClone.data.comments.filter(
+      (comment) => comment.id !== id
+    );
+    stateClone.data.comments = newComments;
+    stateClone.data.comments.forEach((comment) => {
+      const newReplies = comment.replies.filter((reply) => reply.id !== id);
+      comment.replies = newReplies;
+    });
+    this.#reallocateCommentIds(stateClone.data.comments);
+    this.#setState(stateClone);
+  }
+
   send(content) {
     const stateClone = structuredClone(this.#getState());
     const comment = this.#fillCommentTemplate(content);
@@ -86,6 +100,7 @@ export default class Store {
         },
         username: "whoever-a",
       },
+      replies: [],
     };
 
     template.content = content;

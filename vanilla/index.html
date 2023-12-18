@@ -25,7 +25,7 @@
   </head>
   <body>
     <div id="main-container"></div>
-    <div class="modal-container">
+    <div data-id="modal-container" class="modal-container">
       <div class="overlay"></div>
       <div class="modal">
         <div class="modal-header"><p>Delete comment</p></div>
@@ -36,8 +36,12 @@
           </p>
         </div>
         <div class="modal-btn">
-          <button class="modal-cancel">NO, CANCEL</button>
-          <button class="modal-delete">YES, DELETE</button>
+          <button data-id="modal-cancel" class="modal-cancel">
+            NO, CANCEL
+          </button>
+          <button data-id="modal-delete" class="modal-delete">
+            YES, DELETE
+          </button>
         </div>
       </div>
     </div>

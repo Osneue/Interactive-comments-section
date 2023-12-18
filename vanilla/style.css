@@ -351,10 +351,13 @@ body {
 .modal-container {
   position: fixed;
   inset: 0;
-  display: flex;
   justify-content: center;
   align-items: center;
   display: none;
+}
+
+.modal-container.activated {
+  display: flex;
 }
 
 .overlay {

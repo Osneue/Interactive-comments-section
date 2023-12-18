@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   const view = new View();
   const store = new Store(data);
 
-  function handleClick(btn, idOrContent) {
+  view.setHandler((btn, idOrContent) => {
     if (btn === "send") {
       handleSend(idOrContent);
     } else if (btn === "reply") {
@@ -29,12 +29,11 @@ document.addEventListener("DOMContentLoaded", async function () {
       handleUpdate(idOrContent);
     }
 
-    view.render(
-      store.data,
-      { replying: store.replying, editing: store.editing },
-      handleClick
-    );
-  }
+    view.render(store.data, {
+      replying: store.replying,
+      editing: store.editing,
+    });
+  });
 
   function handleSend(conetent) {
     store.send(conetent);
@@ -64,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   function handleDelete(id) {
-    throw new Error("handleDelete() not implemented");
+    store.delete(id);
   }
 
   function handleUpdate(content) {
@@ -72,9 +71,5 @@ document.addEventListener("DOMContentLoaded", async function () {
     store.setEditing({ isEditing: false, editCommentId: 0 });
   }
 
-  view.render(
-    store.data,
-    { replying: store.replying, editing: store.editing },
-    handleClick
-  );
+  view.render(store.data, { replying: store.replying, editing: store.editing });
 });
