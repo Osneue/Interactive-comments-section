@@ -10,7 +10,7 @@
 body {
   /* width: 1440px;
   height: 1024px; */
-  height: 100vh;
+  height: auto;
   background: var(--Very-Light-Gray, #f5f6fa);
   display: flex;
   justify-content: center;
@@ -21,6 +21,7 @@ body {
   width: 50.69%;
   min-width: 600px;
   max-width: 730px;
+  margin: 4.44% 0;
 }
 
 /*
