@@ -15,10 +15,14 @@ document.addEventListener("DOMContentLoaded", async function () {
   const store = new Store(data);
 
   function handleClick(btn, idOrContent) {
-    if (btn === "reply") {
+    if (btn === "send") {
+      handleSend(idOrContent);
+    } else if (btn === "reply") {
       handleReply(idOrContent);
     } else if (btn === "edit") {
       handleEdit(idOrContent);
+    } else if (btn === "delete") {
+      handleDelete(idOrContent);
     } else if (btn === "replySubmit") {
       handleReplySubmit(idOrContent);
     } else if (btn === "update") {
@@ -30,6 +34,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       { replying: store.replying, editing: store.editing },
       handleClick
     );
+  }
+
+  function handleSend(conetent) {
+    store.send(conetent);
   }
 
   function handleReply(id) {
@@ -53,6 +61,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     } else {
       store.setEditing({ isEditing: false, editCommentId: id });
     }
+  }
+
+  function handleDelete(id) {
+    throw new Error("handleDelete() not implemented");
   }
 
   function handleUpdate(content) {

@@ -29,6 +29,14 @@ export default class Store {
     return this.state.editing;
   }
 
+  send(content) {
+    const stateClone = structuredClone(this.#getState());
+    const comment = this.#fillCommentTemplate(content);
+    stateClone.data.comments.push(comment);
+    this.#reallocateCommentIds(stateClone.data.comments);
+    this.#setState(stateClone);
+  }
+
   setReplying(replying) {
     const stateClone = structuredClone(this.#getState());
     stateClone.replying = replying;
@@ -63,6 +71,28 @@ export default class Store {
     comment.replies.push(reply);
     this.#reallocateCommentIds(stateClone.data.comments);
     this.#setState(stateClone);
+  }
+
+  #fillCommentTemplate(content) {
+    const template = {
+      id: 0,
+      content: "",
+      createdAt: "now",
+      score: 0,
+      user: {
+        image: {
+          png: "",
+          webp: "",
+        },
+        username: "whoever-a",
+      },
+    };
+
+    template.content = content;
+    template.user.username = this.data.currentUser.username;
+    template.user.image = this.data.currentUser.image;
+
+    return template;
   }
 
   #findCorrespondingComment(comments, id, canReturnReply) {

@@ -13,7 +13,7 @@ export default class View {
 
   render(data, doing, handler) {
     const comments = this.#renderComments(data);
-    const input = this.#renderInput(data.currentUser, "SEND");
+    const input = this.#renderInput(data.currentUser, "SEND", "send");
 
     while (this.$.mainContainer.firstChild) {
       this.$.mainContainer.removeChild(this.$.mainContainer.firstChild);
@@ -62,8 +62,10 @@ export default class View {
   }
 
   #bindButton(handler, doing) {
+    this.#bindSendButton(handler);
     this.#bindReplyButton(handler);
     this.#bindEditButton(handler);
+    // this.#bindDeleteButton(handler);
 
     if (doing.replying.isReplying) {
       this.#bindReplySubmitButton(handler);
@@ -71,6 +73,14 @@ export default class View {
     if (doing.editing.isEditing) {
       this.#bindUpdateButton(handler);
     }
+  }
+
+  #bindSendButton(handler) {
+    const inputContainer = this.#qs('[data-id="send"]');
+    const sendBtn = this.#qs("button", inputContainer);
+    sendBtn.addEventListener("click", () => {
+      handler("send", sendBtn.previousElementSibling.value);
+    });
   }
 
   #bindReplyButton(handler) {
@@ -119,10 +129,22 @@ export default class View {
     });
   }
 
+  #bindDeleteButton(handler) {
+    const commentDeleteList = this.#qsAll(".comment-delete");
+    commentDeleteList.forEach((commentDelete) => {
+      const commentMainContainer = this.#findParentWithClass(
+        commentDelete,
+        "comment-main-container"
+      );
+      commentDelete.addEventListener("click", () => {
+        handler("delete", +commentMainContainer.getAttribute("data-id"));
+      });
+    });
+  }
+
   #renderReplying(currentUser, commentId) {
     const commentMainContainer = this.#qs(`[data-id="${commentId}"]`);
-    const input = this.#renderInput(currentUser, "REPLY");
-    input.setAttribute("data-id", "reply");
+    const input = this.#renderInput(currentUser, "REPLY", "reply");
     commentMainContainer.parentNode.insertBefore(
       input,
       commentMainContainer.nextSibling
@@ -339,7 +361,7 @@ export default class View {
     return button;
   }
 
-  #renderInput(currentUser, buttonName) {
+  #renderInput(currentUser, buttonName, dataId) {
     const inputContainer = document.createElement("div");
     inputContainer.classList.add("input-container");
     if (buttonName === "REPLY") inputContainer.classList.add("is-reply");
@@ -354,6 +376,7 @@ export default class View {
     `;
     const inputBtn = this.#renderButton(buttonName);
     inputContainer.append(inputBtn);
+    inputContainer.setAttribute("data-id", dataId);
     return inputContainer;
   }
 }
