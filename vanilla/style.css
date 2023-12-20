@@ -1,4 +1,6 @@
-/************** Setup **************/
+/*******************************
+ *** general setup
+ *******************************/
 
 * {
   margin: 0;
@@ -8,37 +10,38 @@
 }
 
 body {
-  /* width: 1440px;
-  height: 1024px; */
-  height: auto;
+  min-height: 100vh;
   background: var(--Very-Light-Gray, #f5f6fa);
   display: flex;
-  justify-content: center;
   align-items: center;
-}
-
-#main-container {
-  width: 50.69%;
-  min-width: 600px;
-  max-width: 730px;
-  margin: 4.44% 0;
-}
-
-/*
-* comment styles
-*/
-
-.comment-main-container {
-  display: flex;
-  justify-content: space-between;
-  padding: 24px;
-  border-radius: 8px;
-  background: var(--White, #fff);
-  margin-bottom: 20px;
 }
 
 .no-margin {
   margin: 0;
+}
+
+#main-container {
+  width: 90%;
+  max-width: 730px;
+  margin: 4.4% auto;
+}
+
+/*******************************
+ *** comment styles
+ *******************************/
+
+.comment-main-container {
+  padding: 24px;
+  border-radius: 8px;
+  background: var(--White, #fff);
+  margin-bottom: 20px;
+
+  display: grid;
+  row-gap: 16px;
+  grid-template-areas:
+    "user-info user-info"
+    "comment-content comment-content"
+    "score reply-info";
 }
 
 /*
@@ -46,14 +49,14 @@ body {
 */
 
 .score-container {
-  width: 40px;
-  height: 100px;
+  width: 100px;
+  height: 40px;
   border-radius: 10px;
   background: var(--Very-Light-Gray, #f5f6fa);
   display: flex;
-  flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  grid-area: score;
 }
 
 .score-number {
@@ -72,14 +75,12 @@ body {
   width: 10px;
   height: 10px;
   background: url("../images/icon-plus.svg") center / cover;
-  margin-bottom: -10px;
 }
 
 .icon-minus {
   width: 10px;
   height: 2.5px;
   background: url("../images/icon-minus.svg") center / cover;
-  margin-top: -10px;
 }
 
 .icon-plus:hover {
@@ -100,6 +101,26 @@ body {
   margin-left: 24px;
 }
 
+@media (min-width: 768px) {
+  .comment-main-container {
+    row-gap: 15px;
+    column-gap: 24px;
+    grid-template-areas:
+      "score user-info reply-info"
+      "score comment-content comment-content"
+      "update-btn update-btn update-btn";
+  }
+
+  .score-container {
+    width: 40px;
+    height: 100px;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    grid-area: score;
+  }
+}
+
 /*
 * comment related infomation (top part) styles within comment
 */
@@ -114,6 +135,7 @@ body {
   justify-content: start;
   align-items: center;
   gap: 16px;
+  grid-area: user-info;
 }
 
 .info-image {
@@ -163,11 +185,10 @@ body {
 }
 
 .comment-reply,
-.comment-delete,
-.comment-edit {
-  display: flex;
-  justify-content: end;
-  align-items: center;
+.delete-edit-container {
+  grid-area: reply-info;
+  justify-self: end;
+  align-self: center;
 }
 
 .comment-reply:hover,
@@ -208,6 +229,7 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: 24px; /* 150% */
+  grid-area: comment-content;
 }
 
 .comment-content .input-box {
@@ -267,9 +289,9 @@ body {
   margin-bottom: 30px;
 }
 
-/*
-* input styles
-*/
+/*******************************
+ *** input styles
+ *******************************/
 
 .input-container {
   height: 144px;
@@ -338,15 +360,13 @@ body {
 }
 
 .btn-container {
-  flex: 1;
-  display: flex;
-  justify-content: end;
-  align-items: center;
+  justify-self: end;
+  grid-area: update-btn;
 }
 
-/*
-* modal styles
-*/
+/*******************************
+ *** modal styles
+ *******************************/
 
 .modal-container {
   position: fixed;

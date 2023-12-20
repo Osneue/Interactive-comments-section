@@ -224,17 +224,18 @@ export default class View {
     const textReply = this.#qs(".text-edit", commentMainContainer);
     textReply.textContent = "Cancel";
 
-    const commentMainBody = this.#qs(
-      ".comment-main-body",
-      commentMainContainer
-    );
+    // const commentMainBody = this.#qs(
+    //   ".comment-main-body",
+    //   commentMainContainer
+    // );
     const btnContainer = document.createElement("div");
     const updateBtn = this.#renderButton("UPDATE");
     updateBtn.classList.add("no-margin");
     btnContainer.appendChild(updateBtn);
     btnContainer.classList.add("btn-container");
     btnContainer.setAttribute("data-id", "update");
-    commentMainBody.appendChild(btnContainer);
+    console.log(1111);
+    commentMainContainer.appendChild(btnContainer);
   }
 
   /*
@@ -246,6 +247,7 @@ export default class View {
     const comments = data.comments;
     const currentUser = data.currentUser;
 
+    div.classList.add("all-comments");
     comments.forEach((comment) => {
       div.appendChild(this.#renderSingleComment(comment, currentUser));
       if (comment.replies && comment.replies.length > 0) {
@@ -257,41 +259,39 @@ export default class View {
 
   #renderSingleComment(comment, currentUser) {
     const commentMainContainer = document.createElement("div");
-    const commentMainBody = this.#renderCommentMainBody(comment, currentUser);
+    const { commentUserInfo, commentReply, commentContent } =
+      this.#renderCommentMainBody(comment, currentUser);
     const score = this.#renderScore(comment);
 
     commentMainContainer.classList.add("comment-main-container");
     commentMainContainer.setAttribute("data-id", `${comment.id}`);
     commentMainContainer.appendChild(score);
-    commentMainContainer.appendChild(commentMainBody);
+    commentMainContainer.appendChild(commentUserInfo);
+    commentMainContainer.appendChild(commentReply);
+    commentMainContainer.appendChild(commentContent);
 
     return commentMainContainer;
   }
 
   #renderScore(comment) {
     const score = document.createElement("div");
+    score.classList.add("score-container");
     score.innerHTML = `
-      <div class="score-container">
         <div class="icon-plus"></div>
         <span class="score-number">${comment.score}</span>
         <div class="icon-minus"></div>
-      </div>
     `;
     return score;
   }
 
   #renderCommentMainBody(comment, currentUser) {
-    const commentMainBody = document.createElement("div");
-    const commentRelatedInfo = this.#renderCommentRelatedInfo(
+    const { commentUserInfo, commentReply } = this.#renderCommentRelatedInfo(
       comment,
       currentUser
     );
     const commentContent = this.#renderCommentContent(comment);
 
-    commentMainBody.appendChild(commentRelatedInfo);
-    commentMainBody.appendChild(commentContent);
-    commentMainBody.classList.add("comment-main-body");
-    return commentMainBody;
+    return { commentUserInfo, commentReply, commentContent };
   }
 
   #renderCommentRelatedInfo(comment, currentUser) {
@@ -302,65 +302,68 @@ export default class View {
   }
 
   #renderCommentRelatedInfoForOthers(comment) {
-    const commentRelatedInfo = document.createElement("div");
-    commentRelatedInfo.classList.add("comment-top-container");
-    commentRelatedInfo.innerHTML = `
-        <div class="comment-user-info">
-          <img
-            class="info-image"
-            src="${comment.user.image.png}"
-            alt="${comment.user.username}"
-          />
-          <div class="info-username">${comment.user.username}</div>
-          <div class="info-createdAt">${comment.createdAt}</div>
-        </div>
-        <div class="comment-reply">
-          <img
-            class="icon-reply"
-            src="../images/icon-reply.svg"
-            alt="X"
-          />
-          <span class="text-reply">Reply</span>
-        </div>
+    const commentUserInfo = document.createElement("div");
+    commentUserInfo.classList.add("comment-user-info");
+    commentUserInfo.innerHTML = `
+      <img
+        class="info-image"
+        src="${comment.user.image.png}"
+        alt="${comment.user.username}"
+      />
+      <div class="info-username">${comment.user.username}</div>
+      <div class="info-createdAt">${comment.createdAt}</div>
     `;
 
-    return commentRelatedInfo;
+    const commentReply = document.createElement("div");
+    commentReply.classList.add("comment-reply");
+    commentReply.innerHTML = `
+      <img
+        class="icon-reply"
+        src="../images/icon-reply.svg"
+        alt="X"
+      />
+      <span class="text-reply">Reply</span>
+    `;
+
+    return { commentUserInfo, commentReply };
   }
 
   #renderCommentRelatedInfoForCurrentUser(comment) {
-    const commentRelatedInfo = document.createElement("div");
-    commentRelatedInfo.classList.add("comment-top-container");
-    commentRelatedInfo.innerHTML = `
-        <div class="comment-user-info">
-          <img
-            class="info-image"
-            src="${comment.user.image.png}"
-            alt="${comment.user.username}"
-          />
-          <div class="info-username">${comment.user.username}</div>
-          <div class="info-currentUser">you</div>
-          <div class="info-createdAt">${comment.createdAt}</div>
-        </div>
-        <div class="delete-edit-container">
-          <div class="comment-delete">
-            <img
-              class="icon-delete"
-              src="../images/icon-delete.svg"
-              alt="X"
-            />
-            <span class="text-delete">Delete</span>
-          </div>
-          <div class="comment-edit">
-            <img
-              class="icon-edit"
-              src="../images/icon-edit.svg"
-              alt="X"
-            />
-            <span class="text-edit">Edit</span>
-          </div>
-        </div>
+    const commentUserInfo = document.createElement("div");
+    commentUserInfo.classList.add("comment-user-info");
+    commentUserInfo.innerHTML = `
+      <img
+      class="info-image"
+      src="${comment.user.image.png}"
+      alt="${comment.user.username}"
+      />
+      <div class="info-username">${comment.user.username}</div>
+      <div class="info-currentUser">you</div>
+      <div class="info-createdAt">${comment.createdAt}</div>
     `;
-    return commentRelatedInfo;
+
+    const commentReply = document.createElement("div");
+    commentReply.classList.add("delete-edit-container");
+    commentReply.innerHTML = `
+      <div class="comment-delete">
+        <img
+          class="icon-delete"
+          src="../images/icon-delete.svg"
+          alt="X"
+        />
+        <span class="text-delete">Delete</span>
+      </div>
+      <div class="comment-edit">
+        <img
+          class="icon-edit"
+          src="../images/icon-edit.svg"
+          alt="X"
+        />
+        <span class="text-edit">Edit</span>
+      </div>
+    `;
+
+    return { commentUserInfo, commentReply };
   }
 
   #renderCommentContent(comment) {
