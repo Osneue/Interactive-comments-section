@@ -183,14 +183,20 @@ export default class Store {
 
   #reallocateCommentIds(comments, scores) {
     let id = 1;
+    let scoreId;
+    const scoresClone = scores.map((score) => score);
+
     comments.forEach((comment) => {
       const oldId = comment.id;
       comment.id = id++;
-      let score = scores.find((score) => score === oldId);
-      if (score) score = comment.id;
+      scoreId = scoresClone.findIndex((score) => score === oldId);
+      if (scoreId >= 0) scores[scoreId] = comment.id;
       if (comment.replies && comment.replies.length > 0) {
         comment.replies.forEach((reply) => {
+          const oldReplyId = reply.id;
           reply.id = id++;
+          scoreId = scoresClone.findIndex((score) => score === oldReplyId);
+          if (scoreId >= 0) scores[scoreId] = reply.id;
         });
       }
     });
