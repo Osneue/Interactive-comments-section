@@ -292,11 +292,16 @@ body {
  *******************************/
 
 .input-container {
-  height: 144px;
   border-radius: 8px;
   background: var(--White, #fff);
-  display: flex;
-  justify-content: space-between;
+  padding: 16px;
+  padding-bottom: 13px;
+
+  display: grid;
+  gap: 16px;
+  grid-template-areas:
+    "text text"
+    "avatar button";
 }
 
 .is-reply {
@@ -307,7 +312,8 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 40px;
-  margin: 28px 16px 0 24px;
+  grid-area: avatar;
+  align-self: center;
 }
 
 .input-box {
@@ -326,8 +332,8 @@ body {
   font-weight: 400;
   line-height: 24px; /* 150% */
 
-  margin-top: 24px;
   padding: 12px 24px 0;
+  grid-area: text;
 }
 
 .input-box:hover {
@@ -341,7 +347,6 @@ body {
   border-radius: 8px;
   background: var(--Moderate-Blue, #5357b6);
   border: none;
-  margin: 24px 24px 0 16px;
 
   color: var(--White, #fff);
   font-feature-settings: "clig" off, "liga" off;
@@ -350,6 +355,8 @@ body {
   font-style: normal;
   font-weight: 500;
   line-height: 24px; /* 150% */
+  grid-area: button;
+  justify-self: end;
 }
 
 .input-button:hover {
@@ -361,6 +368,18 @@ body {
   justify-self: end;
   grid-area: update-btn;
   margin-top: 16px;
+}
+
+@media (min-width: 768px) {
+  .input-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 24px;
+  }
+
+  .input-avatar {
+    align-self: flex-start;
+  }
 }
 
 /*******************************
