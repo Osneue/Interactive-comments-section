@@ -360,6 +360,7 @@ body {
 .btn-container {
   justify-self: end;
   grid-area: update-btn;
+  margin-top: 16px;
 }
 
 /*******************************
