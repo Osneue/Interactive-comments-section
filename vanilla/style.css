@@ -23,6 +23,7 @@ body {
 #main-container {
   width: 90%;
   max-width: 730px;
+  min-width: 300px;
   margin: 4.4% auto;
 }
 
